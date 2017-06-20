@@ -1,36 +1,57 @@
 'use strict';
+
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const prompts = require('./prompts');
+const path = require('path');
+const fs = require('fs');
+const _ = require('lodash');
+
+const utils = require('../../utils/all');
 
 module.exports = class extends Generator {
-  prompting() {
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the outstanding ' + chalk.red('generator-react-complete') + ' generator!'
-    ));
+    constructor(args, options) {
+        super(args, options);
 
-    const prompts = [{
-      type: 'confirm',
-      name: 'someAnswer',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+        this.option('skip-welcome-message', {
+            desc: 'Skip the welcome message',
+            type: Boolean,
+            defaults: false
+        });
 
-    return this.prompt(prompts).then(props => {
-      // To access props later use this.props.someAnswer;
-      this.props = props;
-    });
-  }
+        this.option('skip-install');
 
-  writing() {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
-  }
+        this.config.save();
+    }
 
-  install() {
-    this.installDependencies();
-  }
+    prompting() {
+        this.log(yosay('Welcome to the outstanding ' + chalk.red('generator-react-complete') + ' generator!'));
+
+        return this.prompt(prompts)
+            .then(answers => {
+                // Make sure to get the correct app name if it is not the default
+                if(answers.appName !== utils.yeoman.getAppName()) {
+                    answers.appName = utils.yeoman.getAppName(answers.appName);
+                }
+
+                // Set needed global vars for yo
+                this.package_settings = answers;
+
+                // Set needed keys into config
+                this.config.set('appName', this.appName);
+            });
+    }
+
+    writing() {
+        this.fs.copyTpl(
+            this.templatePath('_package.json'),
+            this.destinationPath('package.json'),
+            this.package_settings
+        );
+    }
+
+    install() {
+
+    }
 };
