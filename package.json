@@ -1,24 +1,49 @@
 {
-    "name": "react-multiple-generator",
-    "version": "0.0.1",
-    "description": "Generate standalone website or webcomponent react ",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": {
-        "name": "Romain Diegoni",
-        "url": "romaindiegoni.com"
-    },
-    "license": "MIT",
-    "keywords": [
-        "react",
-        "generator"
-    ],
-    "bugs": {
-        "url": "https://github.com/drioemgaoin/react-multiple-generator/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/drioemgaoin/react-multiple-generator.git"
+  "name": "generator-react-complete",
+  "version": "0.0.1",
+  "description": "React generator",
+  "homepage": "",
+  "author": {
+    "name": "Romain Diegoni",
+    "url": "romaindiegoni.com"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "react",
+    "yeoman-generator"
+  ],
+  "devDependencies": {
+    "yeoman-test": "^1.6.0",
+    "yeoman-assert": "^3.0.0",
+    "nsp": "^2.6.3",
+    "eslint": "^3.18.0",
+    "eslint-config-xo-space": "^0.16.0",
+    "jest": "^19.0.2",
+    "jest-cli": "^20.0.0"
+  },
+  "dependencies": {
+    "yeoman-generator": "^1.0.0",
+    "chalk": "^1.1.3",
+    "yosay": "^2.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "prepublish": "nsp check",
+    "pretest": "eslint . --fix",
+    "test": "jest"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "jest": true,
+      "node": true
     }
+  },
+  "repository": "https://github.com/drioemgaoin/react-multiple-generator.git",
+  "license": "MIT"
 }

@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Romain Diegoni",
+      "authorEmail": "romain_diegoni@hotmail.com",
+      "authorUrl": "romaindiegoni.com"
+    }
+  }
+}
