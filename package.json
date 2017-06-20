@@ -1,0 +1,24 @@
+{
+    "name": "react-multiple-generator",
+    "version": "0.0.1",
+    "description": "Generate standalone website or webcomponent react ",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": {
+        "name": "Romain Diegoni",
+        "url": "romaindiegoni.com"
+    },
+    "license": "MIT",
+    "keywords": [
+        "react",
+        "generator"
+    ],
+    "bugs": {
+        "url": "https://github.com/drioemgaoin/react-multiple-generator/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/drioemgaoin/react-multiple-generator.git"
+    }
+}
