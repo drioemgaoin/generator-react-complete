@@ -4,12 +4,16 @@
       {
         "name": "javascript",
         "value": "javascript",
-        "config": "jsconfig.json"
+        "config": "jsconfig.json",
+        "packages": []
       },
       {
         "name": "typescript",
         "value": "typescript",
-        "config": "tsconfig.json"
+        "config": "tsconfig.json",
+        "packages": [
+          { "name": "typescript", "version": "^2.2.1" }
+        ]
       }
     ],
     "default": "javascript"
