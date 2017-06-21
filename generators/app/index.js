@@ -36,7 +36,8 @@ module.exports = class extends Generator {
                 }
 
                 // Set needed global vars for yo
-                this.package_settings = answers;
+                this.appName = answers.appName;
+                this.compiler = answers.compiler;
 
                 // Set needed keys into config
                 this.config.set('appName', this.appName);
@@ -47,8 +48,17 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('_package.json'),
             this.destinationPath('package.json'),
-            this.package_settings
+            { appName: this.appName }
         );
+
+        let compilerConfig = utils.config.getChoiceByKey('compiler', this.compiler);
+        if (compilerConfig) {
+          this.fs.copyTpl(
+              this.templatePath('_' + compilerConfig.config),
+              this.destinationPath(compilerConfig.config)
+          );
+        }
+
     }
 
     install() {

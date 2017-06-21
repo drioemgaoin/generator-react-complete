@@ -32,8 +32,35 @@ let getDefaultChoice = (setting) => {
   return config && config.default !== undefined && config.default.length > 0 ? config.default : null;
 }
 
+/**
+ * Get the wanted choice by key
+ * @param  {String} setting
+ * @param  {String} key
+ * @return {Object}
+ */
+let getChoiceByKey = (setting, key) => {
+
+  let choices = getChoices(setting);
+  if(!choices) {
+    return null;
+  }
+
+  let result = null;
+
+  for(let choice of choices) {
+
+    if(choice.name === key) {
+      result = choice;
+      break;
+    }
+  }
+
+  return result;
+}
+
 module.exports = {
   getSetting,
   getChoices,
-  getDefaultChoice
+  getDefaultChoice,
+  getChoiceByKey
 };

@@ -1,2 +1,17 @@
 {
+  "compiler": {
+    "options": [
+      {
+        "name": "javascript",
+        "value": "javascript",
+        "config": "jsconfig.json"
+      },
+      {
+        "name": "typescript",
+        "value": "typescript",
+        "config": "tsconfig.json"
+      }
+    ],
+    "default": "javascript"
+  }
 }
