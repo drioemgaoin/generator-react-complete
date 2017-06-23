@@ -64,7 +64,7 @@ module.exports = class extends Generator {
       this.destinationPath('package.json'),
       {
         appName: this.appName,
-        devDependencies: devDependencies
+        devDependencies: JSON.stringify(compilerConfig.packages)
       }
     );
 
