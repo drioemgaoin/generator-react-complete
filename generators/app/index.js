@@ -45,14 +45,8 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    let devDependencies = [];
-
     let compilerConfig = utils.config.getChoiceByKey('compiler', this.compiler);
     if (compilerConfig) {
-      for(let dependency of compilerConfig.packages) {
-        devDependencies[dependency.name] = dependency.version;
-      }
-
       this.fs.copyTpl(
         this.templatePath('_' + compilerConfig.config),
         this.destinationPath(compilerConfig.config)
@@ -64,7 +58,7 @@ module.exports = class extends Generator {
       this.destinationPath('package.json'),
       {
         appName: this.appName,
-        devDependencies: JSON.stringify(compilerConfig.packages)
+        devDependencies: JSON.stringify(compilerConfig.packages, null, '\t').replace('}\n', '}')
       }
     );
 
