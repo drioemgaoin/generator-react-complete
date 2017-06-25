@@ -11,7 +11,7 @@
         "name": "typescript",
         "value": "typescript",
         "config": "tsconfig.json",
-        "packages": [
+        "dependencies": [
           { "name": "typescript", "version": "^2.2.1" }
         ]
       }

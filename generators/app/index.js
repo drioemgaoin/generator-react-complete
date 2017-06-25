@@ -45,26 +45,34 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    let dependencies = {};
+
     let compilerConfig = utils.config.getChoiceByKey('compiler', this.compiler);
     if (compilerConfig) {
+      for (let dependency of compilerConfig.dependencies) {
+        dependencies[dependency.name] = dependency.version;
+      }
+
       this.fs.copyTpl(
         this.templatePath('_' + compilerConfig.config),
         this.destinationPath(compilerConfig.config)
       );
     }
 
+    dependencies['react'] = '^15.1.0';
+    dependencies['react-dom'] = '^15.1.0';
+
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
       {
         appName: this.appName,
-        devDependencies: JSON.stringify(compilerConfig.packages, null, '\t').replace('}\n', '}')
+        dependencies: JSON.stringify(dependencies, null, '\t\t').replace('}', '\t}')
       }
     );
-
   }
 
   install() {
-
+      this.installDependencies({ bower: false });
   }
 };
