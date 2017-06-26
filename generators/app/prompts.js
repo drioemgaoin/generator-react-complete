@@ -12,9 +12,16 @@ module.exports = [
   },
   {
     type: 'list',
-    name: 'compiler',
-    message: 'Which compiler do you want to use?',
-    choices: utils.config.getChoices('compiler'),
-    default: utils.config.getDefaultChoice('compiler')
+    name: 'bundler',
+    message: 'Which bundler do you want to use?',
+    choices: utils.config.getChoices('bundler'),
+    default: utils.config.getDefaultChoice('bundler')
+  },
+  {
+    type: 'list',
+    name: 'transpiler',
+    message: 'Which transpiler do you want to use?',
+    choices: utils.config.getChoices('transpiler'),
+    default: utils.config.getDefaultChoice('transpiler')
   }
 ];

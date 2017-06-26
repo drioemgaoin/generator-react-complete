@@ -1,11 +1,33 @@
 {
-  "compiler": {
+  "bundler": {
     "options": [
       {
-        "name": "javascript",
-        "value": "javascript",
+        "name": "webpack",
+        "value": "webpack",
+        "config": "webpack.config.js",
+        "dependencies": [
+            { "name": "webpack", "version": "^3.0.0" }
+        ],
+        "devDependencies": [
+            { "name": "webpack", "version": "^3.0.0" },
+            { "name": "babel-core", "version": "6.25.0" },
+            { "name": "babel-loader", "version": "7.1.0" },
+            { "name": "babel-preset-es2015", "version": "6.24.1" },
+            { "name": "babel-preset-react", "version": "6.24.1" },
+            { "name": "babel-preset-stage-0", "version": "6.24.1" },
+            { "name": "path", "version": "0.12.7" }
+        ]
+      }
+    ],
+    "default": "webpack"
+  },
+  "transpiler": {
+    "options": [
+      {
+        "name": "babel",
+        "value": "babel",
         "config": "jsconfig.json",
-        "packages": []
+        "component": "component.es6.jsx"
       },
       {
         "name": "typescript",
@@ -16,6 +38,6 @@
         ]
       }
     ],
-    "default": "javascript"
+    "default": "babel"
   }
 }
