@@ -43,6 +43,7 @@ module.exports = class extends Generator {
             this.appName = answers.appName;
             this.bundler = answers.bundler;
             this.transpiler = answers.transpiler;
+            this.modules = answers.modules;
 
             // Set needed keys into config
             this.config.set('appName', this.appName);

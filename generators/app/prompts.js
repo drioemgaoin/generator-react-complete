@@ -12,6 +12,13 @@ module.exports = [
   },
   {
     type: 'list',
+    name: 'modules',
+    message: 'Which modules format do you want to use?',
+    choices: utils.config.getChoices('modules'),
+    default: utils.config.getDefaultChoice('modules')
+  },
+  {
+    type: 'list',
     name: 'bundler',
     message: 'Which bundler do you want to use?',
     choices: utils.config.getChoices('bundler'),

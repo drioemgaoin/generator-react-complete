@@ -1,4 +1,24 @@
 {
+  "modules": {
+    "options": [
+      {
+        "name": "es5"
+      },
+      {
+        "name": "es6"
+      },
+      {
+        "name": "commonjs"
+      },
+      {
+        "name": "amd"
+      },
+      {
+        "name": "umd"
+      }
+    ],
+    "default": "es6"
+  },
   "bundler": {
     "options": [
       {
