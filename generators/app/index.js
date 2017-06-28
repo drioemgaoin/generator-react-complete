@@ -41,55 +41,68 @@ module.exports = class extends Generator {
 
             // Set needed global vars for yo
             this.appName = answers.appName;
+            this.language = answers.language;
+            this.framework = answers.framework;
+            this.compiler = answers.compiler;
             this.bundler = answers.bundler;
             this.transpiler = answers.transpiler;
-            this.modules = answers.modules;
 
             // Set needed keys into config
             this.config.set('appName', this.appName);
         });
     }
 
-    writing() {
-        let dependencies = {};
-        let devDependencies = {};
-
+    writeBundlerConfig() {
         let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
         if (bundlerConfig) {
-            for (let dependency of bundlerConfig.dependencies) {
-                dependencies[dependency.name] = dependency.version;
-            }
-
-            for (let devDependency of bundlerConfig.devDependencies) {
-                devDependencies[devDependency.name] = devDependency.version;
-            }
-
             this.fs.copyTpl(
                 this.templatePath('bundler/' + bundlerConfig.config),
                 this.destinationPath(bundlerConfig.config)
             );
         }
+    }
 
+    writeTranspilerConfig() {
         let transpilerConfig = utils.config.getChoiceByKey('transpiler', this.transpiler);
         if (transpilerConfig) {
-            if (transpilerConfig.dependencies) {
-                for (let dependency of transpilerConfig.dependencies) {
-                    dependencies[dependency.name] = dependency.version;
-                }
-            }
-
             this.fs.copyTpl(
                 this.templatePath('transpiler/' + transpilerConfig.config),
                 this.destinationPath(transpilerConfig.config)
             );
-
-            if (transpilerConfig.name === 'babel') {
-                this.fs.copy(this.templatePath('src/components/' + transpilerConfig.component), this.destinationPath('src/components/component.jsx'));
-            }
         }
+    }
 
-        dependencies['react'] = '^15.1.0';
-        dependencies['react-dom'] = '^15.1.0';
+    writeDraft() {
+        let compilerConfig = utils.config.getChoiceByKey('compiler', this.compiler);
+        let languageConfig = utils.config.getChoiceByKey('language', this.language);
+        let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
+
+        this.fs.copy(
+            this.templatePath('src/components/' + utils.internal.getSourceDraftFileName(compilerConfig, languageConfig, frameworkConfig)),
+            this.destinationPath('src/components/' + utils.internal.getTargetDraftFileName(compilerConfig, languageConfig, frameworkConfig))
+        );
+    }
+
+    writePackageJson() {
+        let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
+        let transpilerConfig = utils.config.getChoiceByKey('transpiler', this.transpiler);
+
+        const dependencies = _.assign({
+                'react': '^15.1.0',
+                'react-dom': '^15.1.0'
+            },
+            utils.internal.getDependencies(bundlerConfig.dependencies),
+            utils.internal.getDependencies(transpilerConfig.dependencies)
+        );
+
+        const devDependencies = _.assign({
+                'react': '^15.1.0',
+                'react-dom': '^15.1.0'
+            },
+            utils.internal.getDependencies(bundlerConfig.devDependencies),
+            utils.internal.getDependencies(transpilerConfig.devDependencies)
+        );
+
 
         this.fs.copyTpl(
             this.templatePath('_package.json'),
@@ -100,6 +113,13 @@ module.exports = class extends Generator {
                 devDependencies: JSON.stringify(devDependencies, null, '\t\t').replace('}', '\t}')
             }
         );
+    }
+
+    writing() {
+        this.writeBundlerConfig();
+        this.writeTranspilerConfig();
+        this.writeDraft();
+        this.writePackageJson();
 
         this.fs.copy(this.templatePath('public'), this.destinationPath('public'));
         this.fs.copy(this.templatePath('src/index.js'), this.destinationPath('src/index.js'));

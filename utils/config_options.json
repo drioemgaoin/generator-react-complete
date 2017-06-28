@@ -1,63 +1,93 @@
 {
-  "modules": {
-    "options": [
-      {
-        "name": "es5"
-      },
-      {
-        "name": "es6"
-      },
-      {
-        "name": "commonjs"
-      },
-      {
-        "name": "amd"
-      },
-      {
-        "name": "umd"
-      }
-    ],
-    "default": "es6"
-  },
-  "bundler": {
-    "options": [
-      {
-        "name": "webpack",
-        "value": "webpack",
-        "config": "webpack.config.js",
-        "dependencies": [
-            { "name": "webpack", "version": "^3.0.0" }
+    "language": {
+        "options": [
+            {
+                "name": "javascript"
+            },
+            {
+                "name": "typescript"
+            }
         ],
-        "devDependencies": [
-            { "name": "webpack", "version": "^3.0.0" },
-            { "name": "babel-core", "version": "6.25.0" },
-            { "name": "babel-loader", "version": "7.1.0" },
-            { "name": "babel-preset-es2015", "version": "6.24.1" },
-            { "name": "babel-preset-react", "version": "6.24.1" },
-            { "name": "babel-preset-stage-0", "version": "6.24.1" },
-            { "name": "path", "version": "0.12.7" }
-        ]
-      }
-    ],
-    "default": "webpack"
-  },
-  "transpiler": {
-    "options": [
-      {
-        "name": "babel",
-        "value": "babel",
-        "config": "jsconfig.json",
-        "component": "component.es6.jsx"
-      },
-      {
-        "name": "typescript",
-        "value": "typescript",
-        "config": "tsconfig.json",
-        "dependencies": [
-          { "name": "typescript", "version": "^2.2.1" }
-        ]
-      }
-    ],
-    "default": "babel"
-  }
+        "default": "javascript"
+    },
+    "compiler": {
+        "options": [
+            {
+                "name": "es5"
+            },
+            {
+                "name": "es6"
+            },
+            {
+                "name": "commonjs"
+            },
+            {
+                "name": "amd"
+            },
+            {
+                "name": "umd"
+            }
+        ],
+        "default": "es6"
+    },
+    "framework": {
+        "options": [
+            {
+                "name": "none"
+            },
+            {
+                "name": "react",
+                "file": {
+                    "source": "component.{compiler}.{extension}",
+                    "destination": "component.{extension}"
+                },
+                "extensions": {
+                    "javascript": "jsx",
+                    "typescript": "tsx"
+                }
+            }
+        ],
+        "default": "none"
+    },
+    "bundler": {
+        "options": [
+            {
+                "name": "webpack",
+                "value": "webpack",
+                "config": "webpack.config.js",
+                "dependencies": [
+                    { "name": "webpack", "version": "^3.0.0" }
+                ],
+                "devDependencies": [
+                    { "name": "webpack", "version": "^3.0.0" },
+                    { "name": "babel-core", "version": "6.25.0" },
+                    { "name": "babel-loader", "version": "7.1.0" },
+                    { "name": "babel-preset-es2015", "version": "6.24.1" },
+                    { "name": "babel-preset-react", "version": "6.24.1" },
+                    { "name": "babel-preset-stage-0", "version": "6.24.1" },
+                    { "name": "path", "version": "0.12.7" }
+                ]
+            }
+        ],
+        "default": "webpack"
+    },
+    "transpiler": {
+        "options": [
+            {
+                "name": "babel",
+                "value": "babel",
+                "config": "jsconfig.json"
+            },
+            {
+                "name": "typescript",
+                "value": "typescript",
+                "config": "tsconfig.json",
+                "dependencies": [
+                    { "name": "typescript", "version": "^2.2.1" },
+                    { "name": "@types/typescript", "version": "^2.2.1" }
+                ]
+            }
+        ],
+        "default": "babel"
+    }
 }
