@@ -11,6 +11,17 @@ let getTargetDraftFileName = (compiler, language, framework) => {
         .replace('{extension}', framework.extensions[language.name]);
 }
 
+let getSourceWebpackConfigFileName = (bundler, language) => {
+
+    return bundler.file.source
+        .replace('{language}', language.name);
+}
+
+let getTargetWebpackConfigFileName = (bundler, language) => {
+    return bundler.file.destination
+        .replace('{language}', language.name);
+}
+
 let getDependencies = (dependencies) => {
     let result = {};
 
@@ -26,5 +37,7 @@ let getDependencies = (dependencies) => {
 module.exports = {
     getSourceDraftFileName,
     getTargetDraftFileName,
+    getSourceWebpackConfigFileName,
+    getTargetWebpackConfigFileName,
     getDependencies
 }

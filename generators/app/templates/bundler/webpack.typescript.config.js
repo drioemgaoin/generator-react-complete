@@ -12,15 +12,19 @@ module.exports = {
     module: {
         loaders: [
             {
+                test: /(\.ts)|(\.tsx)$/,
+                loader: 'ts-loader'
+            },
+            {
                 test: /(\.js)|(\.jsx)$/,
                 loader: 'babel-loader',
                 query: {
                     presets: ['react', 'es2015', 'stage-0']
                 }
-            },
+            }
         ]
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.ts', '.tsx']
     }
 };

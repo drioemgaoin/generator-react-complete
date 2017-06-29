@@ -54,22 +54,21 @@ module.exports = class extends Generator {
 
     writeBundlerConfig() {
         let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
-        if (bundlerConfig) {
-            this.fs.copyTpl(
-                this.templatePath('bundler/' + bundlerConfig.config),
-                this.destinationPath(bundlerConfig.config)
-            );
-        }
+        let languageConfig = utils.config.getChoiceByKey('language', this.language);
+        
+        this.fs.copyTpl(
+            this.templatePath('bundler/' + utils.internal.getSourceWebpackConfigFileName(bundlerConfig, languageConfig)),
+            this.destinationPath(utils.internal.getTargetWebpackConfigFileName(bundlerConfig, languageConfig))
+        );
     }
 
     writeTranspilerConfig() {
         let transpilerConfig = utils.config.getChoiceByKey('transpiler', this.transpiler);
-        if (transpilerConfig) {
-            this.fs.copyTpl(
-                this.templatePath('transpiler/' + transpilerConfig.config),
-                this.destinationPath(transpilerConfig.config)
-            );
-        }
+
+        this.fs.copyTpl(
+            this.templatePath('transpiler/' + transpilerConfig.config),
+            this.destinationPath(transpilerConfig.config)
+        );
     }
 
     writeDraft() {
@@ -87,18 +86,22 @@ module.exports = class extends Generator {
         let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
         let transpilerConfig = utils.config.getChoiceByKey('transpiler', this.transpiler);
 
+        const typings = this.language === 'typescript' 
+        ? {
+            "@types/react": "^15.0.13",
+            "@types/react-dom": "^0.14.23"
+        } : {};
+
         const dependencies = _.assign({
-                'react': '^15.1.0',
-                'react-dom': '^15.1.0'
+                'react': '^15.4.2',
+                'react-dom': '^15.4.2'
             },
+            typings,
             utils.internal.getDependencies(bundlerConfig.dependencies),
             utils.internal.getDependencies(transpilerConfig.dependencies)
         );
 
-        const devDependencies = _.assign({
-                'react': '^15.1.0',
-                'react-dom': '^15.1.0'
-            },
+        const devDependencies = _.assign({},
             utils.internal.getDependencies(bundlerConfig.devDependencies),
             utils.internal.getDependencies(transpilerConfig.devDependencies)
         );

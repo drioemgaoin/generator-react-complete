@@ -19,10 +19,10 @@ module.exports = [
   },
   {
     type: 'list',
-    name: 'framework',
-    message: 'Which framework do you want to use?',
-    choices: utils.config.getChoices('framework'),
-    default: utils.config.getDefaultChoice('framework')
+    name: 'transpiler',
+    message: 'Which transpiler do you want to use?',
+    choices: utils.config.getChoices('transpiler'),
+    default: utils.config.getDefaultChoice('transpiler')
   },
   {
     type: 'list',
@@ -33,16 +33,16 @@ module.exports = [
   },
   {
     type: 'list',
+    name: 'framework',
+    message: 'Which framework do you want to use?',
+    choices: utils.config.getChoices('framework'),
+    default: utils.config.getDefaultChoice('framework')
+  },
+  {
+    type: 'list',
     name: 'bundler',
     message: 'Which bundler do you want to use?',
     choices: utils.config.getChoices('bundler'),
     default: utils.config.getDefaultChoice('bundler')
-  },
-  {
-    type: 'list',
-    name: 'transpiler',
-    message: 'Which transpiler do you want to use?',
-    choices: utils.config.getChoices('transpiler'),
-    default: utils.config.getDefaultChoice('transpiler')
   }
 ];
