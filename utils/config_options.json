@@ -44,7 +44,11 @@
                 "extensions": {
                     "javascript": "jsx",
                     "typescript": "tsx"
-                }
+                },
+                "dependencies": [
+                    { "name": "react", "version": "^15.4.2" },
+                    { "name": "react-dom", "version": "^15.4.2" }
+                ]
             }
         ],
         "default": "none"

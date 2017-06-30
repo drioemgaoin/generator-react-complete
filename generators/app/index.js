@@ -85,6 +85,7 @@ module.exports = class extends Generator {
     writePackageJson() {
         let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
         let transpilerConfig = utils.config.getChoiceByKey('transpiler', this.transpiler);
+        let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
 
         const typings = this.language === 'typescript' 
         ? {
@@ -92,20 +93,18 @@ module.exports = class extends Generator {
             "@types/react-dom": "^0.14.23"
         } : {};
 
-        const dependencies = _.assign({
-                'react': '^15.4.2',
-                'react-dom': '^15.4.2'
-            },
+        const dependencies = _.assign({},
             typings,
             utils.internal.getDependencies(bundlerConfig.dependencies),
-            utils.internal.getDependencies(transpilerConfig.dependencies)
+            utils.internal.getDependencies(transpilerConfig.dependencies),
+            utils.internal.getDependencies(frameworkConfig.dependencies)
         );
 
         const devDependencies = _.assign({},
             utils.internal.getDependencies(bundlerConfig.devDependencies),
-            utils.internal.getDependencies(transpilerConfig.devDependencies)
+            utils.internal.getDependencies(transpilerConfig.devDependencies),
+            utils.internal.getDependencies(frameworkConfig.devDependencies)
         );
-
 
         this.fs.copyTpl(
             this.templatePath('_package.json'),
