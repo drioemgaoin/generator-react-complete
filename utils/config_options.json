@@ -45,10 +45,16 @@
                     "javascript": "jsx",
                     "typescript": "tsx"
                 },
-                "dependencies": [
-                    { "name": "react", "version": "^15.4.2" },
-                    { "name": "react-dom", "version": "^15.4.2" }
-                ]
+                "dependencies":{ 
+                    "default": [
+                        { "name": "react", "version": "^15.4.2" },
+                        { "name": "react-dom", "version": "^15.4.2" }
+                    ],
+                    "typescript": [
+                        { "name": "@types/react", "version": "^15.0.13" },
+                        { "name": "@types/react-dom", "version": "^0.14.23" }
+                    ]
+                }
             }
         ],
         "default": "none"
@@ -62,16 +68,18 @@
                     "source": "webpack.{language}.config.js",
                     "destination": "webpack.config.js"
                 },
-                "devDependencies": [
-                    { "name": "webpack", "version": "^3.0.0" },
-                    { "name": "babel-core", "version": "6.25.0" },
-                    { "name": "babel-loader", "version": "7.1.0" },
-                    { "name": "babel-preset-es2015", "version": "6.24.1" },
-                    { "name": "babel-preset-react", "version": "6.24.1" },
-                    { "name": "babel-preset-stage-0", "version": "6.24.1" },
-                    { "name": "path", "version": "0.12.7" },
-                    { "name": "ts-loader", "version": "^2.0.3" }
-                ]
+                "devDependencies":{ 
+                    "default": [
+                        { "name": "webpack", "version": "^3.0.0" },
+                        { "name": "babel-core", "version": "6.25.0" },
+                        { "name": "babel-loader", "version": "7.1.0" },
+                        { "name": "babel-preset-es2015", "version": "6.24.1" },
+                        { "name": "babel-preset-react", "version": "6.24.1" },
+                        { "name": "babel-preset-stage-0", "version": "6.24.1" },
+                        { "name": "path", "version": "0.12.7" },
+                        { "name": "ts-loader", "version": "^2.0.3" }
+                    ]
+                }
             }
         ],
         "default": "webpack"
@@ -87,9 +95,11 @@
                 "name": "typescript",
                 "value": "typescript",
                 "config": "tsconfig.json",
-                "devDependencies": [
-                    { "name": "typescript", "version": "^2.2.1" }
-                ]
+                "devDependencies":{ 
+                    "default": [
+                        { "name": "typescript", "version": "^2.2.1" }
+                    ]
+                }
             }
         ],
         "default": "babel"

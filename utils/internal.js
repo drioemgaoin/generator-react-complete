@@ -1,5 +1,4 @@
 let getSourceDraftFileName = (compiler, language, framework) => {
-
     return framework.file.source
         .replace('{compiler}', compiler.name)
         .replace('{extension}', framework.extensions[language.name]);
@@ -22,12 +21,18 @@ let getTargetWebpackConfigFileName = (bundler, language) => {
         .replace('{language}', language.name);
 }
 
-let getDependencies = (dependencies) => {
+let getDependencies = (dependencies, language) => {
     let result = {};
 
     if (dependencies) {
-        for (let dependency of dependencies) {
+        for (let dependency of dependencies['default']) {
             result[dependency.name] = dependency.version;
+        }
+
+        if (dependencies[language]) {
+            for (let dependency of dependencies[language]) {
+                result[dependency.name] = dependency.version;
+            }
         }
     }
 

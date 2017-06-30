@@ -87,23 +87,18 @@ module.exports = class extends Generator {
         let transpilerConfig = utils.config.getChoiceByKey('transpiler', this.transpiler);
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
 
-        const typings = this.language === 'typescript' 
-        ? {
-            "@types/react": "^15.0.13",
-            "@types/react-dom": "^0.14.23"
-        } : {};
+        console.log(this.language)
 
         const dependencies = _.assign({},
-            typings,
-            utils.internal.getDependencies(bundlerConfig.dependencies),
-            utils.internal.getDependencies(transpilerConfig.dependencies),
-            utils.internal.getDependencies(frameworkConfig.dependencies)
+            utils.internal.getDependencies(bundlerConfig.dependencies, this.language),
+            utils.internal.getDependencies(transpilerConfig.dependencies, this.language),
+            utils.internal.getDependencies(frameworkConfig.dependencies, this.language)
         );
 
         const devDependencies = _.assign({},
-            utils.internal.getDependencies(bundlerConfig.devDependencies),
-            utils.internal.getDependencies(transpilerConfig.devDependencies),
-            utils.internal.getDependencies(frameworkConfig.devDependencies)
+            utils.internal.getDependencies(bundlerConfig.devDependencies, this.language),
+            utils.internal.getDependencies(transpilerConfig.devDependencies, this.language),
+            utils.internal.getDependencies(frameworkConfig.devDependencies, this.language)
         );
 
         this.fs.copyTpl(
