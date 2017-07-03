@@ -27,19 +27,22 @@
                 "name": "typescript",
                 "values": [
                     {
+                        "name": "es3"
+                    },
+                    {
                         "name": "es5"
                     },
                     {
                         "name": "es6"
                     },
                     {
-                        "name": "commonjs"
+                        "name": "es2015"
                     },
                     {
-                        "name": "amd"
+                        "name": "es2017"
                     },
                     {
-                        "name": "umd"
+                        "name": "esnext"
                     }
                 ] 
             }
@@ -55,8 +58,14 @@
             {
                 "name": "react",
                 "file": {
-                    "source": "component.{compiler}.{extension}",
-                    "destination": "component.{extension}"
+                    "javascript": {
+                        "source": "component.{compiler}.{extension}",
+                        "destination": "component.{extension}"
+                    },
+                    "typescript": {
+                        "source": "component.{extension}",
+                        "destination": "component.{extension}"
+                    }
                 },
                 "extensions": {
                     "javascript": "jsx",

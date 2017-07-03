@@ -1,11 +1,11 @@
 let getSourceDraftFileName = (compiler, language, framework) => {
-    return framework.file.source
+    return framework.file[language.name].source
         .replace('{compiler}', compiler.name)
         .replace('{extension}', framework.extensions[language.name]);
 }
 
 let getTargetDraftFileName = (compiler, language, framework) => {
-    return framework.file.destination
+    return framework.file[language.name].destination
         .replace('{compiler}', compiler.name)
         .replace('{extension}', framework.extensions[language.name]);
 }
