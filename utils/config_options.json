@@ -13,20 +13,37 @@
     "compiler": {
         "options": [
             {
-                "name": "es5"
+                "name": "javascript",
+                "values": [
+                    {
+                        "name": "es5"
+                    },
+                    {
+                        "name": "es6"
+                    }
+                ] 
             },
             {
-                "name": "es6"
-            },
-            {
-                "name": "commonjs"
-            },
-            {
-                "name": "amd"
-            },
-            {
-                "name": "umd"
+                "name": "typescript",
+                "values": [
+                    {
+                        "name": "es5"
+                    },
+                    {
+                        "name": "es6"
+                    },
+                    {
+                        "name": "commonjs"
+                    },
+                    {
+                        "name": "amd"
+                    },
+                    {
+                        "name": "umd"
+                    }
+                ] 
             }
+            
         ],
         "default": "es6"
     },

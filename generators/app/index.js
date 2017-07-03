@@ -67,12 +67,15 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(
             this.templatePath('transpiler/' + transpilerConfig.config),
-            this.destinationPath(transpilerConfig.config)
+            this.destinationPath(transpilerConfig.config),
+            {
+                compilerTarget: this.compiler
+            }
         );
     }
 
     writeDraft() {
-        let compilerConfig = utils.config.getChoiceByKey('compiler', this.compiler);
+        let compilerConfig = utils.config.getChoiceByKey('compiler', [this.language, this.compiler]);
         let languageConfig = utils.config.getChoiceByKey('language', this.language);
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
 
@@ -86,8 +89,6 @@ module.exports = class extends Generator {
         let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
         let transpilerConfig = utils.config.getChoiceByKey('transpiler', this.transpiler);
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
-
-        console.log(this.language)
 
         const dependencies = _.assign({},
             utils.internal.getDependencies(bundlerConfig.dependencies, this.language),

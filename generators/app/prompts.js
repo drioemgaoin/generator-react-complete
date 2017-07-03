@@ -2,6 +2,7 @@
 'use strict';
 
 const utils = require('../../utils/all');
+const _ = require('lodash');
 
 module.exports = [
   {
@@ -28,7 +29,7 @@ module.exports = [
     type: 'list',
     name: 'compiler',
     message: 'Which compiler do you want to use?',
-    choices: utils.config.getChoices('compiler'),
+    choices: response => _.find(utils.config.getChoices('compiler'), x => x.name === response.language).values,
     default: utils.config.getDefaultChoice('compiler')
   },
   {

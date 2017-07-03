@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require('lodash');
+
 let opts = require('./config_options.json');
 
 /**
@@ -40,18 +42,27 @@ let getDefaultChoice = (setting) => {
  */
 let getChoiceByKey = (setting, key) => {
 
-  let choices = getChoices(setting);
+  let choices = setting.values ? setting.values : getChoices(setting);
   if(!choices) {
     return null;
   }
 
   let result = null;
+  for (let choice of choices) {
+    if (Array.isArray(key)) {
+      if(_.find(key, x => x === choice.name)) {
+        const keys = _.filter(key, x => x !== choice.name);
+        result = keys.length > 0
+          ? getChoiceByKey(choice, keys)
+          : choice;
 
-  for(let choice of choices) {
-
-    if(choice.name === key) {
-      result = choice;
-      break;
+        break;
+      }
+    } else {
+      if(choice.name === key) {
+        result = choice;  
+        break;
+      }
     }
   }
 
