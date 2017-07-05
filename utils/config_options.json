@@ -21,7 +21,7 @@
                     {
                         "name": "es6"
                     }
-                ] 
+                ]
             },
             {
                 "name": "typescript",
@@ -44,34 +44,62 @@
                     {
                         "name": "esnext"
                     }
-                ] 
+                ]
             }
-            
+
         ],
         "default": "es6"
     },
     "framework": {
         "options": [
             {
-                "name": "none"
+                "name": "none",
+                "file": {
+                    "javascript": {
+                        "source": "app/index.{compiler}.{extension}",
+                        "destination": "index.js"
+                    },
+                    "typescript": {
+                        "source": "app/index.{extension}",
+                        "destination": "index.{extension}"
+                    }
+                },
+                "extensions": {
+                    "javascript": {
+                        "default": "js"
+                    },
+                    "typescript": {
+                        "default": "ts"
+                    }
+                },
+                "entryPoint": {
+                    "file": "src/index.{extension}"
+                }
             },
             {
                 "name": "react",
                 "file": {
                     "javascript": {
-                        "source": "component.{compiler}.{extension}",
-                        "destination": "component.{extension}"
+                        "source": "components/component.{compiler}.{extension}",
+                        "destination": "components/component.{extension}"
                     },
                     "typescript": {
-                        "source": "component.{extension}",
-                        "destination": "component.{extension}"
+                        "source": "components/component.{extension}",
+                        "destination": "components/component.{extension}"
                     }
                 },
                 "extensions": {
-                    "javascript": "jsx",
-                    "typescript": "tsx"
+                    "javascript": {
+                        "default": "js",
+                        "draft": "jsx"
+                    },
+                    "typescript": {
+                        "default": "ts",
+                        "draft": "tsx",
+                        "entryPoint": "js"
+                    }
                 },
-                "dependencies":{ 
+                "dependencies":{
                     "default": [
                         { "name": "react", "version": "^15.4.2" },
                         { "name": "react-dom", "version": "^15.4.2" }
@@ -80,6 +108,9 @@
                         { "name": "@types/react", "version": "^15.0.13" },
                         { "name": "@types/react-dom", "version": "^0.14.23" }
                     ]
+                },
+                "entryPoint": {
+                    "file": "src/index.{extension}"
                 }
             }
         ],
@@ -94,7 +125,7 @@
                     "source": "webpack.{language}.config.js",
                     "destination": "webpack.config.js"
                 },
-                "devDependencies":{ 
+                "devDependencies":{
                     "default": [
                         { "name": "webpack", "version": "^3.0.0" },
                         { "name": "babel-core", "version": "6.25.0" },
@@ -121,7 +152,7 @@
                 "name": "typescript",
                 "value": "typescript",
                 "config": "tsconfig.json",
-                "devDependencies":{ 
+                "devDependencies":{
                     "default": [
                         { "name": "typescript", "version": "^2.2.1" }
                     ]

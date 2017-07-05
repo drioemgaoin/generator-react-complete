@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     context: path.join(__dirname),
     entry: [
-        path.join(__dirname, 'src/index.js')
+        path.join(__dirname, "<%= entryPoint %>")
     ],
     output: {
         path: path.join(__dirname, 'public'),

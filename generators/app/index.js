@@ -55,10 +55,14 @@ module.exports = class extends Generator {
     writeBundlerConfig() {
         let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
         let languageConfig = utils.config.getChoiceByKey('language', this.language);
-        
+        let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
+
         this.fs.copyTpl(
             this.templatePath('bundler/' + utils.internal.getSourceWebpackConfigFileName(bundlerConfig, languageConfig)),
-            this.destinationPath(utils.internal.getTargetWebpackConfigFileName(bundlerConfig, languageConfig))
+            this.destinationPath(utils.internal.getTargetWebpackConfigFileName(bundlerConfig, languageConfig)),
+            {
+                entryPoint: utils.internal.getEntryPoinWebpackConfigFileName(frameworkConfig, languageConfig)
+            }
         );
     }
 
@@ -80,8 +84,8 @@ module.exports = class extends Generator {
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
 
         this.fs.copy(
-            this.templatePath('src/components/' + utils.internal.getSourceDraftFileName(compilerConfig, languageConfig, frameworkConfig)),
-            this.destinationPath('src/components/' + utils.internal.getTargetDraftFileName(compilerConfig, languageConfig, frameworkConfig))
+            this.templatePath('src/' + utils.internal.getSourceDraftFileName(compilerConfig, languageConfig, frameworkConfig)),
+            this.destinationPath('src/' + utils.internal.getTargetDraftFileName(compilerConfig, languageConfig, frameworkConfig))
         );
     }
 
@@ -120,7 +124,13 @@ module.exports = class extends Generator {
         this.writePackageJson();
 
         this.fs.copy(this.templatePath('public'), this.destinationPath('public'));
-        this.fs.copy(this.templatePath('src/index.js'), this.destinationPath('src/index.js'));
+
+        if (this.framework === 'react') {
+            this.fs.copy(
+                this.templatePath('src/index.js'),
+                this.destinationPath('src/index.js')
+            );
+        }
     }
 
     install() {
