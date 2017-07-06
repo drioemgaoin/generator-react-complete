@@ -83,10 +83,12 @@ module.exports = class extends Generator {
         let languageConfig = utils.config.getChoiceByKey('language', this.language);
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
 
-        this.fs.copy(
-            this.templatePath('src/' + utils.internal.getSourceDraftFileName(compilerConfig, languageConfig, frameworkConfig)),
-            this.destinationPath('src/' + utils.internal.getTargetDraftFileName(compilerConfig, languageConfig, frameworkConfig))
-        );
+        frameworkConfig.files[languageConfig.name].map(file => {
+            this.fs.copy(
+                this.templatePath(utils.internal.getSourceDraftFileName(file, compilerConfig, languageConfig, frameworkConfig)),
+                this.destinationPath(utils.internal.getTargetDraftFileName(file, compilerConfig, languageConfig, frameworkConfig))
+            );
+        });
     }
 
     writePackageJson() {
@@ -125,12 +127,12 @@ module.exports = class extends Generator {
 
         this.fs.copy(this.templatePath('public'), this.destinationPath('public'));
 
-        if (this.framework === 'react') {
-            this.fs.copy(
-                this.templatePath('src/index.js'),
-                this.destinationPath('src/index.js')
-            );
-        }
+        // if (this.framework === 'react') {
+        //     this.fs.copy(
+        //         this.templatePath('src/index.js'),
+        //         this.destinationPath('src/index.js')
+        //     );
+        // }
     }
 
     install() {

@@ -3,14 +3,14 @@ function getExtension(config, language, key) {
     return extension[key] ? extension[key] : extension['default'];
 }
 
-let getSourceDraftFileName = (compiler, language, framework) => {
-    return framework.file[language.name].source
+let getSourceDraftFileName = (file, compiler, language, framework) => {
+    return 'framework/' + framework.name + '/' + file.source
         .replace('{compiler}', compiler.name)
         .replace('{extension}', getExtension(framework, language, 'draft'));
 }
 
-let getTargetDraftFileName = (compiler, language, framework) => {
-    return framework.file[language.name].destination
+let getTargetDraftFileName = (file, compiler, language, framework) => {
+    return file.destination
         .replace('{compiler}', compiler.name)
         .replace('{extension}', getExtension(framework, language, 'draft'));
 }

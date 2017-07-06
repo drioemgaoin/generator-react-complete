@@ -1,15 +1,15 @@
-interface IApp {
+export interface IApp {
     start(): void;
 }
 
-class App implements IApp {
+export class App implements IApp {
     private title: string;
 
     constructor() {
         this.title = 'App';
     }
 
-    start(): void {
+    public start(): void {
         console.log('Start ' + this.title);
     }
 }

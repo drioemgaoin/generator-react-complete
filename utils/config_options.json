@@ -54,15 +54,19 @@
         "options": [
             {
                 "name": "none",
-                "file": {
-                    "javascript": {
-                        "source": "app/index.{compiler}.{extension}",
-                        "destination": "index.js"
-                    },
-                    "typescript": {
-                        "source": "app/index.{extension}",
-                        "destination": "index.{extension}"
-                    }
+                "files": {
+                    "javascript": [
+                        {
+                            "source": "index.{compiler}.{extension}",
+                            "destination": "src/index.js"
+                        }
+                    ],
+                    "typescript": [
+                        {
+                            "source": "index.{extension}",
+                            "destination": "src/index.ts"
+                        }
+                    ]
                 },
                 "extensions": {
                     "javascript": {
@@ -78,15 +82,27 @@
             },
             {
                 "name": "react",
-                "file": {
-                    "javascript": {
-                        "source": "components/component.{compiler}.{extension}",
-                        "destination": "components/component.{extension}"
-                    },
-                    "typescript": {
-                        "source": "components/component.{extension}",
-                        "destination": "components/component.{extension}"
-                    }
+                "files": {
+                    "javascript": [
+                        {
+                            "source": "components/component.{compiler}.{extension}",
+                            "destination": "src/components/component.{extension}"
+                        },
+                        {
+                            "source": "index.js",
+                            "destination": "src/index.js"
+                        }
+                    ],
+                    "typescript": [
+                        {
+                            "source": "components/component.{extension}",
+                            "destination": "src/components/component.{extension}"
+                        },
+                        {
+                            "source": "index.js",
+                            "destination": "src/index.js"
+                        }
+                    ]
                 },
                 "extensions": {
                     "javascript": {
