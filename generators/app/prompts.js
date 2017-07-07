@@ -22,7 +22,7 @@ module.exports = [
     type: 'list',
     name: 'transpiler',
     message: 'Which transpiler do you want to use?',
-    choices: utils.config.getChoices('transpiler'),
+    choices: response => _.find(utils.config.getChoices('transpiler'), x => x.name === response.language).values,
     default: utils.config.getDefaultChoice('transpiler')
   },
   {

@@ -67,7 +67,7 @@ module.exports = class extends Generator {
     }
 
     writeTranspilerConfig() {
-        let transpilerConfig = utils.config.getChoiceByKey('transpiler', this.transpiler);
+        let transpilerConfig = utils.config.getChoiceByKey('transpiler', [this.language, this.transpiler]);
 
         this.fs.copyTpl(
             this.templatePath('transpiler/' + transpilerConfig.config),
@@ -93,7 +93,7 @@ module.exports = class extends Generator {
 
     writePackageJson() {
         let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
-        let transpilerConfig = utils.config.getChoiceByKey('transpiler', this.transpiler);
+        let transpilerConfig = utils.config.getChoiceByKey('transpiler', [this.language, this.transpiler]);
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
 
         const dependencies = _.assign({},
