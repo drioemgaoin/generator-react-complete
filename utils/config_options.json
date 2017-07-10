@@ -46,7 +46,6 @@
                     }
                 ]
             }
-
         ],
         "default": "es6"
     },
@@ -169,19 +168,29 @@
     "transpiler": {
         "options": [
             {
-                "name": "babel",
-                "value": "babel",
-                "config": "jsconfig.json"
+                "name": "javascript",
+                "values": [
+                    {
+                        "name": "babel",
+                        "value": "babel",
+                        "config": "jsconfig.json"
+                    }
+                ]
             },
             {
                 "name": "typescript",
-                "value": "typescript",
-                "config": "tsconfig.json",
-                "devDependencies":{
-                    "default": [
-                        { "name": "typescript", "version": "^2.2.1" }
-                    ]
-                }
+                "values": [
+                    {
+                        "name": "typescript",
+                        "value": "typescript",
+                        "config": "tsconfig.json",
+                        "devDependencies":{
+                            "default": [
+                                { "name": "typescript", "version": "^2.2.1" }
+                            ]
+                        }
+                    }
+                ]
             }
         ],
         "default": "babel"

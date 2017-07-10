@@ -43,7 +43,7 @@ let getDefaultChoice = (setting) => {
 let getChoiceByKey = (setting, key) => {
 
   let choices = setting.values ? setting.values : getChoices(setting);
-  if(!choices) {
+  if (!choices) {
     return null;
   }
 
@@ -51,7 +51,7 @@ let getChoiceByKey = (setting, key) => {
   for (let choice of choices) {
     if (Array.isArray(key)) {
       if(_.find(key, x => x === choice.name)) {
-        const keys = _.filter(key, x => x !== choice.name);
+        const keys = _.takeRight(key, key.length - 1);
         result = keys.length > 0
           ? getChoiceByKey(choice, keys)
           : choice;
@@ -60,7 +60,7 @@ let getChoiceByKey = (setting, key) => {
       }
     } else {
       if(choice.name === key) {
-        result = choice;  
+        result = choice;
         break;
       }
     }
