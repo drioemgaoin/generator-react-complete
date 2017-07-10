@@ -57,14 +57,22 @@
                 "files": {
                     "javascript": [
                         {
-                            "source": "index.{compiler}.{extension}",
-                            "destination": "src/index.js"
+                            "source": "app/app.{compiler}.{extension}",
+                            "destination": "src/app.js"
+                        },
+                        {
+                            "source": "index.js",
+                            "destination": "index.js"
                         }
                     ],
                     "typescript": [
                         {
-                            "source": "index.{extension}",
-                            "destination": "src/index.ts"
+                            "source": "app/app.{extension}",
+                            "destination": "src/app.ts"
+                        },
+                        {
+                            "source": "index.js",
+                            "destination": "index.js"
                         }
                     ]
                 },
@@ -73,11 +81,12 @@
                         "default": "js"
                     },
                     "typescript": {
-                        "default": "ts"
+                        "default": "ts",
+                        "entryPoint": "js"
                     }
                 },
                 "entryPoint": {
-                    "file": "src/index.{extension}"
+                    "file": "index.{extension}"
                 }
             },
             {

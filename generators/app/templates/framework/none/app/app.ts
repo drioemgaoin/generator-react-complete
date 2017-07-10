@@ -2,7 +2,7 @@ export interface IApp {
     start(): void;
 }
 
-export class App implements IApp {
+export default class App implements IApp {
     private title: string;
 
     constructor() {
