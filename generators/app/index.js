@@ -57,13 +57,15 @@ module.exports = class extends Generator {
         let languageConfig = utils.config.getChoiceByKey('language', this.language);
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
 
-        this.fs.copyTpl(
-            this.templatePath('bundler/' + utils.internal.getSourceWebpackConfigFileName(bundlerConfig, languageConfig)),
-            this.destinationPath(utils.internal.getTargetWebpackConfigFileName(bundlerConfig, languageConfig)),
-            {
-                entryPoint: utils.internal.getEntryPoinWebpackConfigFileName(frameworkConfig, languageConfig)
-            }
-        );
+        bundlerConfig.files.map(file => {
+            this.fs.copyTpl(
+                this.templatePath(utils.internal.getSourceWebpackConfigFileName(file, languageConfig)),
+                this.destinationPath(file.destination),
+                {
+                    entryPoint: utils.internal.getEntryPoinWebpackConfigFileName(frameworkConfig, languageConfig)
+                }
+            );
+        });
     }
 
     writeTranspilerConfig() {

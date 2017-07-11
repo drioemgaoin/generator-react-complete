@@ -15,14 +15,13 @@ let getTargetDraftFileName = (file, compiler, language, framework) => {
         .replace('{extension}', getExtension(framework, language, 'draft'));
 }
 
-let getSourceWebpackConfigFileName = (bundler, language) => {
-    return bundler.file.source
-        .replace('{language}', language.name);
+let getSourceWebpackConfigFileName = (file, language) => {
+    console.log('bundler/' + language.name + '/' + file.source);
+    return 'bundler/' + language.name + '/' + file.source;
 }
 
-let getTargetWebpackConfigFileName = (bundler, language) => {
-    return bundler.file.destination
-        .replace('{language}', language.name);
+let getTargetWebpackConfigFileName = (file, language) => {
+    return 'bundler/' + language.name + '/' + file.destination;
 }
 
 let getEntryPoinWebpackConfigFileName = (framework, language) => {

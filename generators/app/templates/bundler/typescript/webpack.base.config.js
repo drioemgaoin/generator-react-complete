@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
@@ -12,6 +13,10 @@ module.exports = {
     module: {
         loaders: [
             {
+                test: /(\.ts)|(\.tsx)$/,
+                loader: 'ts-loader'
+            },
+            {
                 test: /(\.js)|(\.jsx)$/,
                 loader: 'babel-loader',
                 query: {
@@ -21,6 +26,11 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.js', '.jsx']
-    }
+        extensions: ['.js', '.ts', '.tsx']
+    },
+    plugins: [
+        new webpack.EnvironmentPlugin([
+        'NODE_ENV',
+        ]),
+    ]
 };

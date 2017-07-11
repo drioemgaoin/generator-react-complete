@@ -145,10 +145,20 @@
             {
                 "name": "webpack",
                 "value": "webpack",
-                "file": {
-                    "source": "webpack.{language}.config.js",
-                    "destination": "webpack.config.js"
-                },
+                "files": [
+                    {
+                        "source": "webpack.base.config.js",
+                        "destination": "webpack.base.config.js"
+                    },
+                    {
+                        "source": "webpack.dev.config.js",
+                        "destination": "webpack.dev.config.js"
+                    },
+                    {
+                        "source": "webpack.prod.config.js",
+                        "destination": "webpack.prod.config.js"
+                    }
+                ],
                 "devDependencies":{
                     "default": [
                         { "name": "webpack", "version": "^3.0.0" },
@@ -158,7 +168,8 @@
                         { "name": "babel-preset-react", "version": "6.24.1" },
                         { "name": "babel-preset-stage-0", "version": "6.24.1" },
                         { "name": "path", "version": "0.12.7" },
-                        { "name": "ts-loader", "version": "^2.0.3" }
+                        { "name": "ts-loader", "version": "^2.0.3" },
+                        { "name": "webpack-merge", "version": "^4.1.0" }
                     ]
                 }
             }

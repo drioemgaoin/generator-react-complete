@@ -3,7 +3,8 @@
     "private": true,
     "version": "1.0.0",
     "scripts": {
-        "build": "webpack --progress --colors"
+        "build:dev": "webpack --config webpack.dev.config --progress --colors",
+        "build": "webpack --config webpack.prod.config --progress --colors"
     },
     "dependencies": <%- dependencies %>,
     "devDependencies": <%- devDependencies %>
