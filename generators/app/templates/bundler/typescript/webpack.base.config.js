@@ -14,7 +14,10 @@ module.exports = {
         loaders: [
             {
                 test: /(\.ts)|(\.tsx)$/,
-                loader: 'ts-loader'
+                loaders: [
+					'babel-loader?presets[]=es2015',
+					'awesome-typescript-loader'
+				]
             },
             {
                 test: /(\.js)|(\.jsx)$/,

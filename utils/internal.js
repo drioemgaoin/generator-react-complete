@@ -16,7 +16,6 @@ let getTargetDraftFileName = (file, compiler, language, framework) => {
 }
 
 let getSourceWebpackConfigFileName = (file, language) => {
-    console.log('bundler/' + language.name + '/' + file.source);
     return 'bundler/' + language.name + '/' + file.source;
 }
 

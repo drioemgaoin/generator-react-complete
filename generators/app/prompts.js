@@ -13,6 +13,13 @@ module.exports = [
   },
   {
     type: 'list',
+    name: 'appType',
+    message: 'Which type of application do you want?',
+    choices: utils.config.getChoices('appType'),
+    default: utils.config.getDefaultChoice('appType')
+  },
+  {
+    type: 'list',
     name: 'language',
     message: 'Which langage do you want to use?',
     choices: utils.config.getChoices('language'),

@@ -10,6 +10,17 @@
         ],
         "default": "javascript"
     },
+    "appType": {
+        "options": [
+            {
+                "name": "application"
+            },
+            {
+                "name": "library"
+            }
+        ],
+        "default": "application"
+    },
     "compiler": {
         "options": [
             {
@@ -62,6 +73,10 @@
                         {
                             "source": "index.js",
                             "destination": "index.js"
+                        },
+                        {
+                            "source": "index.html",
+                            "destination": "index.html"
                         }
                     ],
                     "typescript": [
@@ -72,6 +87,10 @@
                         {
                             "source": "index.js",
                             "destination": "index.js"
+                        },
+                        {
+                            "source": "index.html",
+                            "destination": "index.html"
                         }
                     ]
                 },
@@ -99,6 +118,10 @@
                         {
                             "source": "index.js",
                             "destination": "src/index.js"
+                        },
+                        {
+                            "source": "index.html",
+                            "destination": "index.html"
                         }
                     ],
                     "typescript": [
@@ -109,6 +132,10 @@
                         {
                             "source": "index.js",
                             "destination": "src/index.js"
+                        },
+                        {
+                            "source": "index.html",
+                            "destination": "index.html"
                         }
                     ]
                 },
@@ -145,20 +172,30 @@
             {
                 "name": "webpack",
                 "value": "webpack",
-                "files": [
-                    {
-                        "source": "webpack.base.config.js",
-                        "destination": "webpack.base.config.js"
-                    },
-                    {
-                        "source": "webpack.dev.config.js",
-                        "destination": "webpack.dev.config.js"
-                    },
-                    {
-                        "source": "webpack.prod.config.js",
-                        "destination": "webpack.prod.config.js"
-                    }
-                ],
+                "files": {
+                    "common": [
+                        {
+                            "source": "webpack.base.config.js",
+                            "destination": "webpack.base.config.js"
+                        },
+                        {
+                            "source": "webpack.dev.config.js",
+                            "destination": "webpack.dev.config.js"
+                        }
+                    ],
+                    "application": [
+                        {
+                            "source": "webpack.prod.config.js",
+                            "destination": "webpack.prod.config.js"
+                        }
+                    ],
+                    "library": [
+                        {
+                            "source": "webpack.npm.config.js",
+                            "destination": "webpack.prod.config.js"
+                        }
+                    ]
+                },
                 "devDependencies":{
                     "default": [
                         { "name": "webpack", "version": "^3.0.0" },
@@ -169,7 +206,11 @@
                         { "name": "babel-preset-stage-0", "version": "6.24.1" },
                         { "name": "path", "version": "0.12.7" },
                         { "name": "ts-loader", "version": "^2.0.3" },
-                        { "name": "webpack-merge", "version": "^4.1.0" }
+                        { "name": "webpack-merge", "version": "^4.1.0" },
+                        { "name": "extract-text-webpack-plugin", "version": "^3.0.0" },
+                        { "name": "path", "version": "^0.12.7" },
+                        { "name": "html-webpack-plugin", "version": "^2.29.0" },
+                        { "name": "awesome-typescript-loader", "version": "^3.2.1" }
                     ]
                 }
             }

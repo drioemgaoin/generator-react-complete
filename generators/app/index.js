@@ -41,6 +41,7 @@ module.exports = class extends Generator {
 
             // Set needed global vars for yo
             this.appName = answers.appName;
+            this.appType = answers.appType;
             this.language = answers.language;
             this.framework = answers.framework;
             this.compiler = answers.compiler;
@@ -56,16 +57,20 @@ module.exports = class extends Generator {
         let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
         let languageConfig = utils.config.getChoiceByKey('language', this.language);
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
+        let appTypeConfig = utils.config.getChoiceByKey('appType', this.appType);
 
-        bundlerConfig.files.map(file => {
-            this.fs.copyTpl(
-                this.templatePath(utils.internal.getSourceWebpackConfigFileName(file, languageConfig)),
-                this.destinationPath(file.destination),
-                {
-                    entryPoint: utils.internal.getEntryPoinWebpackConfigFileName(frameworkConfig, languageConfig)
-                }
-            );
-        });
+        if (bundlerConfig.files) {
+            const files = bundlerConfig.files['common'].concat(bundlerConfig.files[this.appType]);
+            files.map(file => {
+                this.fs.copyTpl(
+                    this.templatePath(utils.internal.getSourceWebpackConfigFileName(file, languageConfig)),
+                    this.destinationPath(file.destination),
+                    {
+                        entryPoint: utils.internal.getEntryPoinWebpackConfigFileName(frameworkConfig, languageConfig)
+                    }
+                );
+            });
+        }
     }
 
     writeTranspilerConfig() {
@@ -128,13 +133,6 @@ module.exports = class extends Generator {
         this.writePackageJson();
 
         this.fs.copy(this.templatePath('public'), this.destinationPath('public'));
-
-        // if (this.framework === 'react') {
-        //     this.fs.copy(
-        //         this.templatePath('src/index.js'),
-        //         this.destinationPath('src/index.js')
-        //     );
-        // }
     }
 
     install() {
