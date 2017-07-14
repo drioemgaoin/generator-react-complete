@@ -227,7 +227,8 @@
                         "value": "babel",
                         "config": "jsconfig.json"
                     }
-                ]
+                ],
+                "default": "babel"
             },
             {
                 "name": "typescript",
@@ -242,7 +243,8 @@
                             ]
                         }
                     }
-                ]
+                ],
+                "default": "typescript"
             }
         ],
         "default": "babel"
