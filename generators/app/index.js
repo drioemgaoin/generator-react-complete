@@ -66,7 +66,8 @@ module.exports = class extends Generator {
                     this.templatePath(utils.internal.getSourceWebpackConfigFileName(file, languageConfig)),
                     this.destinationPath(file.destination),
                     {
-                        entryPoint: utils.internal.getEntryPoinWebpackConfigFileName(frameworkConfig, languageConfig)
+                        entryPoint: utils.internal.getEntryPoinWebpackConfigFileName(frameworkConfig, languageConfig),
+                        appName: this.appName
                     }
                 );
             });
