@@ -42,9 +42,16 @@ module.exports = [
   {
     type: 'list',
     name: 'framework',
-    message: 'Which framework do you want to use?',
+    message: 'Which framework do you want to use on client side?',
     choices: utils.config.getChoices('framework'),
     default: utils.config.getDefaultChoice('framework')
+  },
+  {
+    type: 'list',
+    name: 'serverframework',
+    message: 'Which framework do you want to use on server side?',
+    choices: utils.config.getChoices('serverframework'),
+    default: utils.config.getDefaultChoice('serverframework')
   },
   {
     type: 'list',

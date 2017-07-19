@@ -44,6 +44,7 @@ module.exports = class extends Generator {
             this.appType = answers.appType;
             this.language = answers.language;
             this.framework = answers.framework;
+            this.serverframework = answers.serverframework;
             this.compiler = answers.compiler;
             this.bundler = answers.bundler;
             this.transpiler = answers.transpiler;
@@ -86,7 +87,7 @@ module.exports = class extends Generator {
         );
     }
 
-    writeDraft() {
+    writeClient() {
         let compilerConfig = utils.config.getChoiceByKey('compiler', [this.language, this.compiler]);
         let languageConfig = utils.config.getChoiceByKey('language', this.language);
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
@@ -99,15 +100,28 @@ module.exports = class extends Generator {
         });
     }
 
+    writeServer() {
+        let serverFrameworkConfig = utils.config.getChoiceByKey('serverframework', this.serverframework);
+
+         serverFrameworkConfig.files['common'].map(file => {
+            this.fs.copy(
+                this.templatePath(file.source),
+                this.destinationPath(file.destination)
+            );
+        });
+    }
+
     writePackageJson() {
         let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
         let transpilerConfig = utils.config.getChoiceByKey('transpiler', [this.language, this.transpiler]);
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
+        let serverFrameworkConfig = utils.config.getChoiceByKey('serverframework', this.serverframework);
 
         const dependencies = _.assign({},
             utils.internal.getDependencies(bundlerConfig.dependencies, this.language),
             utils.internal.getDependencies(transpilerConfig.dependencies, this.language),
-            utils.internal.getDependencies(frameworkConfig.dependencies, this.language)
+            utils.internal.getDependencies(frameworkConfig.dependencies, this.language),
+            utils.internal.getDependencies(serverFrameworkConfig.dependencies, this.language)
         );
 
         const devDependencies = _.assign({},
@@ -116,13 +130,21 @@ module.exports = class extends Generator {
             utils.internal.getDependencies(frameworkConfig.devDependencies, this.language)
         );
 
+        const scripts = _.assign({
+                "build:dev": "webpack --config webpack.dev.config --progress --colors",
+                "build": "webpack --config webpack.prod.config --progress --colors"
+            },
+            utils.internal.getScripts(serverFrameworkConfig.scripts)
+        );
+
         this.fs.copyTpl(
             this.templatePath('_package.json'),
             this.destinationPath('package.json'),
             {
                 appName: this.appName,
                 dependencies: JSON.stringify(dependencies, null, '\t\t').replace('}', '\t}'),
-                devDependencies: JSON.stringify(devDependencies, null, '\t\t').replace('}', '\t}')
+                devDependencies: JSON.stringify(devDependencies, null, '\t\t').replace('}', '\t}'),
+                scripts: JSON.stringify(scripts, null, '\t\t').replace('}', '\t}')
             }
         );
     }
@@ -130,7 +152,8 @@ module.exports = class extends Generator {
     writing() {
         this.writeBundlerConfig();
         this.writeTranspilerConfig();
-        this.writeDraft();
+        this.writeClient();
+        this.writeServer();
         this.writePackageJson();
 
         this.fs.copy(this.templatePath('public'), this.destinationPath('public'));

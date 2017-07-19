@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 function getExtension(config, language, key) {
     let extension = config.extensions[language.name];
     return extension[key] ? extension[key] : extension['default'];
@@ -28,6 +30,18 @@ let getEntryPoinWebpackConfigFileName = (framework, language) => {
         .replace('{extension}', getExtension(framework, language, 'entryPoint'));
 }
 
+let getScripts = (scripts) => {
+    let result = {};
+
+    if (scripts) {
+        for (let script of scripts['default']) {
+            result = _.assign(result, script);
+        }
+    }
+
+    return result;
+}
+
 let getDependencies = (dependencies, language) => {
     let result = {};
 
@@ -52,5 +66,6 @@ module.exports = {
     getSourceWebpackConfigFileName,
     getTargetWebpackConfigFileName,
     getDependencies,
-    getEntryPoinWebpackConfigFileName
+    getEntryPoinWebpackConfigFileName,
+    getScripts
 }

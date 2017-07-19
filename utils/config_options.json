@@ -248,5 +248,33 @@
             }
         ],
         "default": "babel"
+    },
+    "serverframework": {
+        "options": [
+            {
+                "name": "nodejs",
+                "value": "nodejs",
+                "files": {
+                    "common": [
+                        {
+                            "source": "server/framework/nodejs/server.js",
+                            "destination": "server.js"
+                        }
+                    ]
+                },
+                "scripts": {
+                    "default": [
+                        { "start": "node --use_strict server.js" }
+                    ]
+                },
+                "dependencies": {
+                    "default": [
+                        { "name": "express", "version": "^4.15.3" },
+                        { "name": "body-parser", "version": "^1.17.2" }
+                    ]
+                }
+            }
+        ],
+        "default": "nodejs"
     }
 }
