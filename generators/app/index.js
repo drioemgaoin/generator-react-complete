@@ -101,27 +101,29 @@ module.exports = class extends Generator {
     }
 
     writeServer() {
-        let serverFrameworkConfig = utils.config.getChoiceByKey('serverframework', this.serverframework);
+        if (this.serverframework) {
+            let serverFrameworkConfig = utils.config.getChoiceByKey('serverframework', this.serverframework);
 
-         serverFrameworkConfig.files['common'].map(file => {
-            this.fs.copy(
-                this.templatePath(file.source),
-                this.destinationPath(file.destination)
-            );
-        });
+            serverFrameworkConfig.files['common'].map(file => {
+                this.fs.copy(
+                    this.templatePath(file.source),
+                    this.destinationPath(file.destination)
+                );
+            });
+        }
     }
 
     writePackageJson() {
         let bundlerConfig = utils.config.getChoiceByKey('bundler', this.bundler);
         let transpilerConfig = utils.config.getChoiceByKey('transpiler', [this.language, this.transpiler]);
         let frameworkConfig = utils.config.getChoiceByKey('framework', this.framework);
-        let serverFrameworkConfig = utils.config.getChoiceByKey('serverframework', this.serverframework);
+        let serverFrameworkConfig = this.serverframework ? utils.config.getChoiceByKey('serverframework', this.serverframework) : undefined;
 
         const dependencies = _.assign({},
             utils.internal.getDependencies(bundlerConfig.dependencies, this.language),
             utils.internal.getDependencies(transpilerConfig.dependencies, this.language),
             utils.internal.getDependencies(frameworkConfig.dependencies, this.language),
-            utils.internal.getDependencies(serverFrameworkConfig.dependencies, this.language)
+            serverFrameworkConfig ? utils.internal.getDependencies(serverFrameworkConfig.dependencies, this.language) : {}
         );
 
         const devDependencies = _.assign({},
@@ -134,7 +136,7 @@ module.exports = class extends Generator {
                 "build:dev": "webpack --config webpack.dev.config --progress --colors",
                 "build": "webpack --config webpack.prod.config --progress --colors"
             },
-            utils.internal.getScripts(serverFrameworkConfig.scripts)
+            serverFrameworkConfig ? utils.internal.getScripts(serverFrameworkConfig.scripts) : {}
         );
 
         this.fs.copyTpl(

@@ -51,7 +51,10 @@ module.exports = [
     name: 'serverframework',
     message: 'Which framework do you want to use on server side?',
     choices: utils.config.getChoices('serverframework'),
-    default: utils.config.getDefaultChoice('serverframework')
+    default: utils.config.getDefaultChoice('serverframework'),
+    when: function(answers) {
+      return answers.appType === 'application';
+    }
   },
   {
     type: 'list',
